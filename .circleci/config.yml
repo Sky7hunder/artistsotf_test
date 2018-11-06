@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.3-node-browsers
+    environment:
+      - RAILS_ENV: test
+    working_directory: ~/artistsoft
+    steps:
+      - checkout
+      - type: cache-restore
+        key: artistsoft-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Installing gems
+          command: |
+            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+
+      - type: cache-save
+        key: artistsoft-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Run tests
+          command: |
+            ./cc-test-reporter before-build
+            ./cc-test-reporter after-build -t simplecov --exit-code $? || true
