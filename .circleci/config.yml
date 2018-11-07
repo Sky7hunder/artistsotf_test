@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.5.3-node-browsers
+      - image: mongo:3
     environment:
       - RAILS_ENV: test
     working_directory: ~/artistsoft
@@ -10,6 +11,11 @@ jobs:
       - checkout
       - type: cache-restore
         key: artistsoft-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Prepare libraries
+          command: |
+            sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
 
       - run:
           name: Installing gems
@@ -22,13 +28,22 @@ jobs:
           - vendor/bundle
 
       - run:
-          name: Setup Code Climate test-reporter
+          name: Notifying CodeClimate
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
 
       - run:
-          name: Run tests
+          name: Running specs
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - run:
+          name: Report coverage to CodeClimate
           command: |
             ./cc-test-reporter before-build
             ./cc-test-reporter after-build -t simplecov --exit-code $? || true
