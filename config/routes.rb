@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'get_processed_dataset', to: 'home#get_processed_dataset'
+
+	root to: 'home#index'
 end

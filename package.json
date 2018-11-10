@@ -1,5 +1,10 @@
 {
   "name": "artistsoft_test",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Sky7hunder/artistsotf_test.git",
+  "author": "Kiril <sky7hunder@gmail.com>",
+  "license": "MIT"
 }
