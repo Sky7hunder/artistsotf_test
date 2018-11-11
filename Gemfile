@@ -31,5 +31,6 @@ group :test do
 	gem 'rspec-rails'
 	gem 'rspec_junit_formatter'
 	gem 'selenium-webdriver'
+	gem 'simplecov', require: false
 	gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec.git'
 end
