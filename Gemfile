@@ -30,6 +30,7 @@ group :test do
 	gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
 	gem 'rspec-rails'
 	gem 'rspec_junit_formatter'
+	gem 'rails-controller-testing'
 	gem 'selenium-webdriver'
 	gem 'simplecov', require: false
 	gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec.git'
