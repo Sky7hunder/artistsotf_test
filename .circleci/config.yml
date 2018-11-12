@@ -6,6 +6,7 @@ jobs:
       - image: mongo:3
     environment:
       - RAILS_ENV: test
+      - CC_TEST_REPORTER_ID: 'b5c1d1789c26267c13a411c692095edcd53fd93141d1b4c29dbc61945503741b'
     working_directory: ~/artistsoft
     steps:
       - checkout
@@ -41,6 +42,9 @@ jobs:
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - store_artifacts:
+          path: coverage/.resultset.json
 
       - run:
           name: Report coverage to CodeClimate

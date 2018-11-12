@@ -1,0 +1,14 @@
+version: "2"
+plugins:
+  rubocop:
+    enabled: true
+  eslint:
+    enabled: true
+    extensions:
+    - .js
+  duplication:
+    enabled: true
+    config:
+      languages:
+       javascript:
+         mass_threshold: 50

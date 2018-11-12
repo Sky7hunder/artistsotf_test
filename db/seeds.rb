@@ -1,8 +1,10 @@
+require 'ffaker'
+
 (1..20).each do |i|
 	User.create(
-		first_name: "First#{i}",
-		last_name: "Last#{i}",
-		birthday: Date.new(1990, 1, i),
-		address: "#{i} Park Ave S, New York"
+		first_name: FFaker::Name.first_name,
+		last_name: FFaker::Name.last_name,
+		birthday: FFaker::Time.date,
+		address: FFaker::Address.street_address
 	)
 end

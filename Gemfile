@@ -12,6 +12,9 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'haml'
 
 group :development, :test do
   gem 'pry'
@@ -27,6 +30,8 @@ group :test do
 	gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
 	gem 'rspec-rails'
 	gem 'rspec_junit_formatter'
+	gem 'rails-controller-testing'
 	gem 'selenium-webdriver'
+	gem 'simplecov', require: false
 	gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec.git'
 end
